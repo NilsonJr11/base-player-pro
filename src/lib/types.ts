@@ -11,6 +11,7 @@ export interface Atleta {
 }
 
 export interface Peneira {
+  escudo?: string;
   id: string;
   clube: string;
   categoria: string;

@@ -8,6 +8,7 @@ export const peneiras: Peneira[] = [
     data: "15/02/2026",
     contato: "https://www.santosfc.com.br",
     status: "Aberto",
+    escudo: "https://logodetimes.com/times/santos/logo-santos-256.png",
   },
   {
     id: "2",
@@ -16,6 +17,7 @@ export const peneiras: Peneira[] = [
     data: "10/03/2026",
     contato: "https://www.flamengo.com.br",
     status: "Aberto",
+    escudo: "https://logodetimes.com/times/flamengo/logo-flamengo-256.png",
   },
   {
     id: "3",
@@ -24,6 +26,7 @@ export const peneiras: Peneira[] = [
     data: "Abril/2026",
     contato: "https://www.palmeiras.com.br",
     status: "Em breve",
+    escudo: "https://logodetimes.com/times/palmeiras/logo-palmeiras-256.png",
   },
   {
     id: "4",
@@ -32,6 +35,7 @@ export const peneiras: Peneira[] = [
     data: "20/02/2026",
     contato: "https://www.corinthians.com.br",
     status: "Aberto",
+    escudo: "https://logodetimes.com/times/corinthians/logo-corinthians-256.png",
   },
 ];
 

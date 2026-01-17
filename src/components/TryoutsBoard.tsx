@@ -48,7 +48,16 @@ export function TryoutsBoard() {
                   <Badge className={`text-[10px] px-2 py-0.5 ${getStatusColor(peneira.status)}`}>{peneira.status}</Badge>
                 </div>
 
-                <h3 className="font-bold text-foreground text-lg mb-2">{peneira.clube}</h3>
+                <div className="flex items-center gap-3 mb-3">
+                  {peneira.escudo && (
+                    <img 
+                      src={peneira.escudo} 
+                      alt={`Escudo ${peneira.clube}`} 
+                      className="w-12 h-12 object-contain"
+                    />
+                  )}
+                  <h3 className="font-bold text-foreground text-lg">{peneira.clube}</h3>
+                </div>
 
                 <div className="space-y-2 text-sm text-muted-foreground mb-4">
                   <div className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5" /><span>{peneira.data}</span></div>
