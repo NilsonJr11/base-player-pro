@@ -25,9 +25,20 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const isFormValid = () => {
+    return (
+      formData.nome.trim() !== "" &&
+      formData.categoria !== "" &&
+      formData.posicao !== "" &&
+      formData.perna !== "" &&
+      formData.regiao.trim() !== "" &&
+      formData.clubeAlvo.trim() !== ""
+    );
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.nome.trim()) return;
+    if (!isFormValid()) return;
 
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 400));
@@ -71,46 +82,46 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <Label className="text-sm font-medium">Categoria</Label>
+                <Label className="text-sm font-medium">Categoria *</Label>
                 <Select value={formData.categoria} onValueChange={(v) => setFormData((prev) => ({ ...prev, categoria: v }))}>
-                  <SelectTrigger className="bg-secondary/50 border-border"><SelectValue placeholder="Selecione" /></SelectTrigger>
+                  <SelectTrigger className={`bg-secondary/50 border-border ${!formData.categoria ? "border-destructive/50" : ""}`}><SelectValue placeholder="Selecione" /></SelectTrigger>
                   <SelectContent>{categorias.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label className="text-sm font-medium">Posição</Label>
+                <Label className="text-sm font-medium">Posição *</Label>
                 <Select value={formData.posicao} onValueChange={(v) => setFormData((prev) => ({ ...prev, posicao: v }))}>
-                  <SelectTrigger className="bg-secondary/50 border-border"><SelectValue placeholder="Selecione" /></SelectTrigger>
+                  <SelectTrigger className={`bg-secondary/50 border-border ${!formData.posicao ? "border-destructive/50" : ""}`}><SelectValue placeholder="Selecione" /></SelectTrigger>
                   <SelectContent>{posicoes.map((p) => <SelectItem key={p} value={p}>{p}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label className="text-sm font-medium">Perna Dominante</Label>
+              <Label className="text-sm font-medium">Perna Dominante *</Label>
               <Select value={formData.perna} onValueChange={(v) => setFormData((prev) => ({ ...prev, perna: v }))}>
-                <SelectTrigger className="bg-secondary/50 border-border"><SelectValue placeholder="Selecione" /></SelectTrigger>
+                <SelectTrigger className={`bg-secondary/50 border-border ${!formData.perna ? "border-destructive/50" : ""}`}><SelectValue placeholder="Selecione" /></SelectTrigger>
                 <SelectContent>{pernas.map((p) => <SelectItem key={p} value={p}>{p}</SelectItem>)}</SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label className="text-sm font-medium flex items-center gap-2"><MapPin className="w-3.5 h-3.5" /> Região</Label>
+              <Label className="text-sm font-medium flex items-center gap-2"><MapPin className="w-3.5 h-3.5" /> Região *</Label>
               <Input
                 value={formData.regiao}
                 onChange={(e) => setFormData((prev) => ({ ...prev, regiao: e.target.value }))}
                 placeholder="Ex: São Paulo, SP"
-                className="bg-secondary/50 border-border focus:border-primary"
+                className={`bg-secondary/50 border-border focus:border-primary ${!formData.regiao.trim() ? "border-destructive/50" : ""}`}
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-sm font-medium flex items-center gap-2"><Target className="w-3.5 h-3.5" /> Clube Alvo</Label>
+              <Label className="text-sm font-medium flex items-center gap-2"><Target className="w-3.5 h-3.5" /> Clube Alvo *</Label>
               <Input
                 value={formData.clubeAlvo}
                 onChange={(e) => setFormData((prev) => ({ ...prev, clubeAlvo: e.target.value }))}
                 placeholder="Clube de interesse"
-                className="bg-secondary/50 border-border focus:border-primary"
+                className={`bg-secondary/50 border-border focus:border-primary ${!formData.clubeAlvo.trim() ? "border-destructive/50" : ""}`}
               />
             </div>
 
@@ -124,7 +135,7 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
               />
             </div>
 
-            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold glow-primary" disabled={isSubmitting}>
+            <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold glow-primary" disabled={isSubmitting || !isFormValid()}>
               {isSubmitting ? "Cadastrando..." : "Cadastrar Atleta"}
             </Button>
           </form>
