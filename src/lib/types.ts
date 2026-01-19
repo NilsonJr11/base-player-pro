@@ -1,6 +1,9 @@
 export interface Atleta {
   id: string;
   nome: string;
+  dataNascimento: string;
+  altura: string;
+  peso: string;
   categoria: string;
   posicao: string;
   perna: string;

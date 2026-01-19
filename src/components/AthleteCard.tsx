@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Target, Trash2, Footprints } from "lucide-react";
+import { MapPin, Target, Trash2, Footprints, Calendar, Ruler, Weight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -63,7 +63,10 @@ export function AthleteCard({ atleta, onRemove, index }: AthleteCardProps) {
                 </AlertDialog>
               </div>
 
-              <div className="mt-3 space-y-1.5 text-xs text-muted-foreground">
+              <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
+                {atleta.dataNascimento && <div className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5" /><span>{new Date(atleta.dataNascimento).toLocaleDateString('pt-BR')}</span></div>}
+                {atleta.altura && <div className="flex items-center gap-2"><Ruler className="w-3.5 h-3.5" /><span>{atleta.altura} cm</span></div>}
+                {atleta.peso && <div className="flex items-center gap-2"><Weight className="w-3.5 h-3.5" /><span>{atleta.peso} kg</span></div>}
                 {atleta.perna && <div className="flex items-center gap-2"><Footprints className="w-3.5 h-3.5" /><span>{atleta.perna}</span></div>}
                 {atleta.regiao && <div className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5" /><span>{atleta.regiao}</span></div>}
                 {atleta.clubeAlvo && <div className="flex items-center gap-2"><Target className="w-3.5 h-3.5" /><span>{atleta.clubeAlvo}</span></div>}
