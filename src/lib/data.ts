@@ -12,12 +12,12 @@ export const peneiras: Peneira[] = [
   },
   {
     id: "2",
-    clube: "Flamengo",
+    clube: "São Paulo FC",
     categoria: "Sub-17",
     data: "10/03/2026",
-    contato: "https://www.flamengo.com.br",
+    contato: "https://www.saopaulofc.net",
     status: "Aberto",
-    escudo: "https://logodetimes.com/times/flamengo/logo-flamengo-256.png",
+    escudo: "https://logodetimes.com/times/sao-paulo/logo-sao-paulo-256.png",
   },
   {
     id: "3",
