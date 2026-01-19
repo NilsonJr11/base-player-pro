@@ -6,6 +6,7 @@ import { TryoutsBoard } from "@/components/TryoutsBoard";
 import { AthleteForm } from "@/components/AthleteForm";
 import { AthleteGrid } from "@/components/AthleteGrid";
 import { SearchFilter } from "@/components/SearchFilter";
+import { DataBackup } from "@/components/DataBackup";
 import type { Atleta } from "@/lib/types";
 import heroStadium from "@/assets/hero-stadium.jpg";
 
@@ -53,6 +54,17 @@ export default function Index() {
     localStorage.setItem("atletas", JSON.stringify(updated));
   };
 
+  const importAtletas = (imported: Atleta[]) => {
+    const merged = [...atletas];
+    imported.forEach((imp) => {
+      if (!merged.some((a) => a.id === imp.id)) {
+        merged.push(imp);
+      }
+    });
+    setAtletas(merged);
+    localStorage.setItem("atletas", JSON.stringify(merged));
+  };
+
   const stats = {
     total: atletas.length,
     base: atletas.filter((a) => a.categoria.includes("Sub")).length,
@@ -92,19 +104,22 @@ export default function Index() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         <StatsCards stats={stats} />
-        <TryoutsBoard />
+        <TryoutsBoard atletas={atletas} />
 
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
             <AthleteForm onSubmit={addAtleta} />
           </div>
           <div className="lg:col-span-2 space-y-6">
-            <SearchFilter
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-              categoryFilter={categoryFilter}
-              onCategoryChange={setCategoryFilter}
-            />
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <SearchFilter
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+                categoryFilter={categoryFilter}
+                onCategoryChange={setCategoryFilter}
+              />
+              <DataBackup atletas={atletas} onImport={importAtletas} />
+            </div>
             <AthleteGrid atletas={filteredAtletas} onRemove={removeAtleta} />
           </div>
         </div>
