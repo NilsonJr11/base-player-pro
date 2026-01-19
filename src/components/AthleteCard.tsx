@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Target, Trash2, Footprints, Calendar, Ruler, Weight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { AthleteReport } from "@/components/AthleteReport";
 import type { Atleta } from "@/lib/types";
 
 interface AthleteCardProps {
@@ -44,12 +44,14 @@ export function AthleteCard({ atleta, onRemove, index }: AthleteCardProps) {
                   </div>
                 </div>
 
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive">
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </AlertDialogTrigger>
+                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <AthleteReport atleta={atleta} />
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-destructive">
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </AlertDialogTrigger>
                   <AlertDialogContent className="glass-card border-border">
                     <AlertDialogHeader>
                       <AlertDialogTitle>Remover atleta?</AlertDialogTitle>
@@ -59,8 +61,9 @@ export function AthleteCard({ atleta, onRemove, index }: AthleteCardProps) {
                       <AlertDialogCancel className="bg-secondary">Cancelar</AlertDialogCancel>
                       <AlertDialogAction onClick={() => onRemove(atleta.id)} className="bg-destructive hover:bg-destructive/90">Remover</AlertDialogAction>
                     </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
               </div>
 
               <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
