@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { UserPlus, Camera, MapPin, Target, Footprints } from "lucide-react";
+import { UserPlus, Camera, MapPin, Target, Calendar, Ruler, Weight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,9 @@ interface AthleteFormProps {
 export function AthleteForm({ onSubmit }: AthleteFormProps) {
   const [formData, setFormData] = useState({
     nome: "",
+    dataNascimento: "",
+    altura: "",
+    peso: "",
     categoria: "",
     posicao: "",
     perna: "",
@@ -28,6 +31,9 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
   const isFormValid = () => {
     return (
       formData.nome.trim() !== "" &&
+      formData.dataNascimento !== "" &&
+      formData.altura.trim() !== "" &&
+      formData.peso.trim() !== "" &&
       formData.categoria !== "" &&
       formData.posicao !== "" &&
       formData.perna !== "" &&
@@ -49,7 +55,7 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
       dataCadastro: new Date().toISOString(),
     });
 
-    setFormData({ nome: "", categoria: "", posicao: "", perna: "", regiao: "", clubeAlvo: "", foto: "" });
+    setFormData({ nome: "", dataNascimento: "", altura: "", peso: "", categoria: "", posicao: "", perna: "", regiao: "", clubeAlvo: "", foto: "" });
     setIsSubmitting(false);
   };
 
@@ -76,8 +82,41 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
                 value={formData.nome}
                 onChange={(e) => setFormData((prev) => ({ ...prev, nome: e.target.value }))}
                 placeholder="Digite o nome do atleta"
-                className="bg-secondary/50 border-border focus:border-primary input-glow"
+                className={`bg-secondary/50 border-border focus:border-primary input-glow ${!formData.nome.trim() ? "border-destructive/50" : ""}`}
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-sm font-medium flex items-center gap-2"><Calendar className="w-3.5 h-3.5" /> Data de Nascimento *</Label>
+              <Input
+                type="date"
+                value={formData.dataNascimento}
+                onChange={(e) => setFormData((prev) => ({ ...prev, dataNascimento: e.target.value }))}
+                className={`bg-secondary/50 border-border focus:border-primary ${!formData.dataNascimento ? "border-destructive/50" : ""}`}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label className="text-sm font-medium flex items-center gap-2"><Ruler className="w-3.5 h-3.5" /> Altura (cm) *</Label>
+                <Input
+                  type="number"
+                  value={formData.altura}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, altura: e.target.value }))}
+                  placeholder="Ex: 175"
+                  className={`bg-secondary/50 border-border focus:border-primary ${!formData.altura.trim() ? "border-destructive/50" : ""}`}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-sm font-medium flex items-center gap-2"><Weight className="w-3.5 h-3.5" /> Peso (kg) *</Label>
+                <Input
+                  type="number"
+                  value={formData.peso}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, peso: e.target.value }))}
+                  placeholder="Ex: 70"
+                  className={`bg-secondary/50 border-border focus:border-primary ${!formData.peso.trim() ? "border-destructive/50" : ""}`}
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
