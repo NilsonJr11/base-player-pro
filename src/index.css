@@ -1,0 +1,289 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scout Pro - Premium Dark Football Theme */
+/* All colors in HSL format */
+
+@layer base {
+  :root {
+    /* Dark premium background with subtle blue undertone */
+    --background: 230 25% 8%;
+    --foreground: 210 40% 98%;
+
+    /* Cards with glassmorphism effect */
+    --card: 230 25% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 230 25% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary: Vibrant emerald green (football pitch) */
+    --primary: 145 70% 45%;
+    --primary-foreground: 230 25% 8%;
+
+    /* Secondary: Subtle dark surface */
+    --secondary: 230 20% 16%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted elements */
+    --muted: 230 15% 20%;
+    --muted-foreground: 215 20% 55%;
+
+    /* Accent: Electric blue */
+    --accent: 210 90% 55%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Destructive: Vibrant red */
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Success: Bright green */
+    --success: 145 70% 45%;
+    --success-foreground: 230 25% 8%;
+
+    /* Warning: Golden amber */
+    --warning: 45 95% 55%;
+    --warning-foreground: 230 25% 8%;
+
+    /* Info: Sky blue */
+    --info: 200 85% 55%;
+    --info-foreground: 210 40% 98%;
+
+    /* Borders and inputs */
+    --border: 230 20% 20%;
+    --input: 230 20% 18%;
+    --ring: 145 70% 45%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 230 25% 10%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 145 70% 45%;
+    --sidebar-primary-foreground: 230 25% 8%;
+    --sidebar-accent: 230 20% 16%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 230 20% 20%;
+    --sidebar-ring: 145 70% 45%;
+
+    /* Custom gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(145 70% 45%), hsl(160 70% 40%));
+    --gradient-accent: linear-gradient(135deg, hsl(210 90% 55%), hsl(230 80% 60%));
+    --gradient-gold: linear-gradient(135deg, hsl(45 95% 55%), hsl(35 90% 50%));
+    --gradient-card: linear-gradient(180deg, hsl(230 25% 14%) 0%, hsl(230 25% 10%) 100%);
+    
+    /* Glow effects */
+    --glow-primary: 0 0 20px hsl(145 70% 45% / 0.3);
+    --glow-accent: 0 0 20px hsl(210 90% 55% / 0.3);
+  }
+
+  .dark {
+    /* Same as root - already dark theme */
+    --background: 230 25% 8%;
+    --foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
+
+@layer components {
+  /* Glassmorphism card */
+  .glass-card {
+    @apply bg-card/50 backdrop-blur-xl border border-border/50;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--card) / 0.8) 0%,
+      hsl(var(--card) / 0.4) 100%
+    );
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .gradient-text-accent {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-accent);
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: var(--glow-primary);
+  }
+
+  .glow-accent {
+    box-shadow: var(--glow-accent);
+  }
+
+  /* Animated border gradient */
+  .border-gradient {
+    position: relative;
+    background: hsl(var(--card));
+    border-radius: var(--radius);
+  }
+
+  .border-gradient::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: calc(var(--radius) + 1px);
+    background: var(--gradient-primary);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .border-gradient:hover::before {
+    opacity: 1;
+  }
+
+  /* Stat card hover effect */
+  .stat-card {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+
+  .stat-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 0%,
+      hsl(var(--primary) / 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .stat-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Button variants */
+  .btn-glow {
+    @apply relative overflow-hidden;
+    transition: all 0.3s ease;
+  }
+
+  .btn-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  .btn-glow:hover {
+    box-shadow: var(--glow-primary);
+    transform: translateY(-2px);
+  }
+
+  /* Input focus glow */
+  .input-glow:focus-within {
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+  }
+
+  /* Hero overlay */
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--background) / 0.7) 0%,
+      hsl(var(--background) / 0.9) 50%,
+      hsl(var(--background)) 100%
+    );
+  }
+
+  /* Floating animation */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Pulse glow */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 5px hsl(var(--primary) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Shimmer effect */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--primary) / 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+}
+
+@layer utilities {
+  /* Text shadow for headings */
+  .text-shadow {
+    text-shadow: 0 2px 10px hsl(var(--background) / 0.5);
+  }
+
+  /* Backdrop blur variants */
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
+}
