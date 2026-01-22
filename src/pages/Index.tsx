@@ -7,6 +7,7 @@ import { AthleteForm } from "@/components/AthleteForm";
 import { AthleteGrid } from "@/components/AthleteGrid";
 import { SearchFilter } from "@/components/SearchFilter";
 import { DataBackup } from "@/components/DataBackup";
+import { TalentMap } from "@/components/TalentMap";
 import type { Atleta } from "@/lib/types";
 import heroStadium from "@/assets/hero-stadium.jpg";
 
@@ -110,6 +111,7 @@ export default function Index() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         <StatsCards stats={stats} />
+        <TalentMap atletas={atletas} />
         <TryoutsBoard atletas={atletas} />
 
         <div className="grid lg:grid-cols-3 gap-8">
