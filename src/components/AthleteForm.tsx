@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { UserPlus, Camera, MapPin, Target, Calendar, Ruler, Weight, ChevronDown, ChevronUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,13 +8,41 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { categorias, pernas, posicoes } from "@/lib/data";
-import { estadosBrasileiros, majorCities } from "@/lib/brazilStates";
+import { majorCities } from "@/lib/brazilStates";
 import { StatsInput } from "@/components/StatsInput";
 import type { Atleta, AthleteStats } from "@/lib/types";
 
 interface AthleteFormProps {
   onSubmit: (atleta: Atleta) => void;
 }
+
+/** Calcula a categoria baseada na idade do atleta */
+const calcularCategoria = (dataNascimento: string): string => {
+  if (!dataNascimento) return "";
+  
+  const hoje = new Date();
+  const nascimento = new Date(dataNascimento);
+  
+  // Valida se a data é válida
+  if (isNaN(nascimento.getTime())) return "";
+  
+  let idade = hoje.getFullYear() - nascimento.getFullYear();
+  const mesAtual = hoje.getMonth();
+  const mesNascimento = nascimento.getMonth();
+  
+  // Ajusta se ainda não fez aniversário este ano
+  if (mesAtual < mesNascimento || (mesAtual === mesNascimento && hoje.getDate() < nascimento.getDate())) {
+    idade--;
+  }
+  
+  // Regras de categoria brasileira
+  if (idade <= 11) return "Sub-11";
+  if (idade <= 13) return "Sub-13";
+  if (idade <= 15) return "Sub-15";
+  if (idade <= 17) return "Sub-17";
+  if (idade <= 20) return "Sub-20";
+  return "Profissional";
+};
 
 const DEFAULT_STATS: AthleteStats = {
   tecnica: 50,
@@ -41,6 +69,12 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
   const [stats, setStats] = useState<AthleteStats>(DEFAULT_STATS);
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Auto-calcula categoria quando data de nascimento muda
+  useEffect(() => {
+    const novaCategoria = calcularCategoria(formData.dataNascimento);
+    setFormData((prev) => ({ ...prev, categoria: novaCategoria }));
+  }, [formData.dataNascimento]);
 
   const isFormValid = () => {
     return (
@@ -139,10 +173,21 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Categoria *</Label>
-                <Select value={formData.categoria} onValueChange={(v) => setFormData((prev) => ({ ...prev, categoria: v }))}>
-                  <SelectTrigger className={`bg-secondary/50 border-border ${!formData.categoria ? "border-destructive/50" : ""}`}><SelectValue placeholder="Selecione" /></SelectTrigger>
+                <Select value={formData.categoria} disabled>
+                  <SelectTrigger 
+                    className={`bg-secondary/30 border-border cursor-not-allowed opacity-70 ${
+                      formData.categoria ? "border-primary/40 text-primary" : "border-destructive/50"
+                    }`}
+                  >
+                    <SelectValue placeholder={formData.dataNascimento ? "Calculando..." : "Preencha a data"} />
+                  </SelectTrigger>
                   <SelectContent>{categorias.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
                 </Select>
+                {formData.categoria && (
+                  <p className="text-xs text-muted-foreground">
+                    Calculado automaticamente pela idade
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Posição *</Label>
