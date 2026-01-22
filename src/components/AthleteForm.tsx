@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { categorias, pernas, posicoes } from "@/lib/data";
+import { estadosBrasileiros, majorCities } from "@/lib/brazilStates";
 import { StatsInput } from "@/components/StatsInput";
 import type { Atleta, AthleteStats } from "@/lib/types";
 
@@ -162,12 +163,18 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
 
             <div className="space-y-2">
               <Label className="text-sm font-medium flex items-center gap-2"><MapPin className="w-3.5 h-3.5" /> Região *</Label>
-              <Input
-                value={formData.regiao}
-                onChange={(e) => setFormData((prev) => ({ ...prev, regiao: e.target.value }))}
-                placeholder="Ex: São Paulo, SP"
-                className={`bg-secondary/50 border-border focus:border-primary ${!formData.regiao.trim() ? "border-destructive/50" : ""}`}
-              />
+              <Select value={formData.regiao} onValueChange={(v) => setFormData((prev) => ({ ...prev, regiao: v }))}>
+                <SelectTrigger className={`bg-secondary/50 border-border ${!formData.regiao ? "border-destructive/50" : ""}`}>
+                  <SelectValue placeholder="Selecione a cidade" />
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px]">
+                  {majorCities.map((city) => (
+                    <SelectItem key={`${city.city}-${city.state}`} value={`${city.city}, ${city.state}`}>
+                      {city.city}, {city.state}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-2">
