@@ -40,6 +40,7 @@ const LabelWithTooltip = ({ children, tooltip, icon }: LabelWithTooltipProps) =>
 
 interface AthleteFormProps {
   onSubmit: (atleta: Atleta) => void;
+  onSuccess?: () => void;
 }
 
 /** Calcula a categoria baseada na idade do atleta */
@@ -79,7 +80,7 @@ const DEFAULT_STATS: AthleteStats = {
   drible: 50,
 };
 
-export function AthleteForm({ onSubmit }: AthleteFormProps) {
+export function AthleteForm({ onSubmit, onSuccess }: AthleteFormProps) {
   const [formData, setFormData] = useState({
     nome: "",
     dataNascimento: "",
@@ -134,25 +135,14 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
     setStats(DEFAULT_STATS);
     setIsStatsOpen(false);
     setIsSubmitting(false);
+    
+    // Callback para fechar o modal após sucesso
+    onSuccess?.();
   };
 
   return (
     <TooltipProvider>
-      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
-        <Card className="glass-card border-primary/20 sticky top-24">
-          <CardHeader className="pb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl bg-primary/20 flex items-center justify-center glow-primary">
-                <UserPlus className="w-5 h-5 text-primary" />
-              </div>
-              <div>
-                <CardTitle className="text-lg font-bold">Novo Atleta</CardTitle>
-                <p className="text-xs text-muted-foreground">Cadastrar jogador</p>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <LabelWithTooltip tooltip="Digite o nome completo conforme o documento de identidade.">
                   Nome Completo *
@@ -324,13 +314,10 @@ export function AthleteForm({ onSubmit }: AthleteFormProps) {
                 </CollapsibleContent>
               </Collapsible>
 
-              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold glow-primary" disabled={isSubmitting || !isFormValid()}>
-                {isSubmitting ? "Cadastrando..." : "Cadastrar Atleta"}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </motion.div>
+        <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold glow-primary" disabled={isSubmitting || !isFormValid()}>
+          {isSubmitting ? "Cadastrando..." : "Cadastrar Atleta"}
+        </Button>
+      </form>
     </TooltipProvider>
   );
 }
