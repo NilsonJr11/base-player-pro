@@ -71,7 +71,10 @@ export function TryoutsBoard({ atletas = [] }: TryoutsBoardProps) {
                         className="w-12 h-12 object-contain"
                       />
                     )}
-                    <h3 className="font-bold text-foreground text-lg">{peneira.clube}</h3>
+                    <div>
+                      <h3 className="font-bold text-foreground text-lg">{peneira.clube}</h3>
+                      <p className="text-[10px] italic text-muted-foreground">Fonte: Portal Oficial de Captação</p>
+                    </div>
                   </div>
 
                   <div className="space-y-2 text-sm text-muted-foreground mb-3">
@@ -96,12 +99,12 @@ export function TryoutsBoard({ atletas = [] }: TryoutsBoardProps) {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="w-full border-accent/30 text-accent hover:bg-accent/10"
+                    className="w-full border-accent/30 text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
                     onClick={() => window.open(peneira.contato, "_blank")}
                     disabled={peneira.status === "Encerrado"}
                   >
-                    <ExternalLink className="w-3.5 h-3.5 mr-2" />
-                    Saiba mais
+                    <MapPin className="w-3.5 h-3.5 mr-2" />
+                    Inscrição & Local
                   </Button>
                 </motion.div>
               );
