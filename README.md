@@ -1,73 +1,37 @@
-# Welcome to your Lovable project
+# ⚽ Base Player Pro (ScoutPro)
 
-## Project info
+O **Base Player Pro** é um sistema de gerenciamento e captação de atletas de futebol de base, projetado para facilitar o acompanhamento de desempenho, registros físicos e scouts técnicos. O projeto oferece uma interface moderna e intuitiva para que gestores e observadores possam catalogar novos talentos com eficiência.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## 🚀 Tecnologias Utilizadas
 
-There are several ways of editing your application.
+Este projeto foi construído utilizando as tecnologias mais modernas do ecossistema Full-Stack:
 
-**Use Lovable**
+* **Frontend:** [React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/)
+* **Ferramenta de Build:** [Vite](https://vitejs.dev/)
+* **Estilização:** [Tailwind CSS](https://tailwindcss.com/) + [Shadcn/UI](https://ui.shadcn.com/)
+* **Gerenciamento de Estado & Cache:** [React Query](https://tanstack.com/query/latest)
+* **Roteamento:** [React Router Dom](https://reactrouter.com/)
+* **Deploy Automatizado:** [GitHub Pages](https://pages.github.com/) com `gh-pages`
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ O que foi implementado até agora
 
-**Use your preferred IDE**
+Durante o desenvolvimento, passamos pelas seguintes etapas de engenharia:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1.  **Estruturação de Componentes:** Criação de cards de atletas e dashboards de monitoramento.
+2.  **Configuração de Rotas:** Implementação de rotas protegidas e tratamento de erro 404 personalizado.
+3.  **Deploy em Produção:** * Configuração do `basename` no `BrowserRouter` para compatibilidade com subdiretórios do GitHub.
+    * Ajuste do `vite.config.ts` para mapeamento de assets estáticos.
+    * Automação do fluxo de build e deploy via scripts customizados no `package.json`.
+4.  **Resolução de Dependências:** Alinhamento de versões entre o Vite e plugins do React para garantir estabilidade no ambiente local (Linux).
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## ⚙️ Como rodar o projeto localmente
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+1. Clone o repositório:
+   ```bash
+   git clone [https://github.com/NilsonJr11/base-player-pro/](https://nilsonjr11.github.io/base-player-pro/)
